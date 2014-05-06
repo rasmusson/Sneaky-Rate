@@ -4,7 +4,10 @@ Android-Rate
 [![Build Status](https://travis-ci.org/hotchemi/Android-Rate.png?branch=master)](https://travis-ci.org/hotchemi/Android-Rate)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hotchemi/android-rate/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-Android-Rate is a library to help you promote your android app by prompting users to rate the app after using it for a few days.
+Sneaky-Rate is a fork from Android-Rate that is a library to help you promote your android app by prompting users to rate the app after using it for a few days.
+
+In addition to the functionallity provided by Android-Rate, Sneaky-Rate provides an additional function.
+
 
 ![screen shot](http://f.st-hatena.com/images/fotolife/h/hotchemi/20140408/20140408114402.png)
 
