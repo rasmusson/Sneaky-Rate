@@ -8,6 +8,17 @@ Sneaky-Rate is a fork from Android-Rate that is a library to help you promote yo
 
 In addition to the functionallity provided by Android-Rate, Sneaky-Rate provides an additional function.
 
+Instead of asking if a user want to go to the rate page on Google Play, the dialog asks what the user thinks of the app.
+The dialog provides two buttons two buttons to answer this. 
+One with a posetiv answer eg. Works perfekt
+One with a negative answer eg. It needs improvement
+
+The possetive button takes the user to the Google Play for rating.
+The negative lets the user send a email with feedback.
+
+This way much of the negative feedback and ratings are sent to your mail instead of afecting your ratings on Google Play.
+
+Sneaky Sneaky
 
 ![screen shot](http://f.st-hatena.com/images/fotolife/h/hotchemi/20140408/20140408114402.png)
 
@@ -24,14 +35,6 @@ Download from [maven central](http://search.maven.org/#browse%7C-2029320689).
 ## ChangeLog
 
 - 2014/02/12 0.0.2 release.
-- 2014/02/13 0.0.3 release.
-- 2014/04/07 0.0.4 release.
-- 2014/04/12 0.0.5 release.
-- 2014/04/13 0.0.6 release.
-
-## Sample
-
-Please try to move the [sample](https://github.com/hotchemi/Android-Rate/tree/master/sample/).
 
 ## How to use
 
