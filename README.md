@@ -1,4 +1,4 @@
-Android-Rate
+Sneaky-Rate
 ============
 
 [![Build Status](https://travis-ci.org/hotchemi/Android-Rate.png?branch=master)](https://travis-ci.org/hotchemi/Android-Rate)
