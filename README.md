@@ -2,22 +2,18 @@ Sneaky-Rate
 ============
 
 [![Build Status](https://travis-ci.org/hotchemi/Android-Rate.png?branch=master)](https://travis-ci.org/hotchemi/Android-Rate)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hotchemi/android-rate/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 Sneaky-Rate is a fork from Android-Rate that is a library to help you promote your android app by prompting users to rate the app after using it for a few days.
 
-In addition to the functionallity provided by Android-Rate, Sneaky-Rate provides an additional function.
+In addition to the functionality provided by Android-Rate, Sneaky-Rate provides an additional function.
 
-Instead of asking if a user want to go to the rate page on Google Play, the dialog asks what the user thinks of the app.
-The dialog provides two buttons two buttons to answer this. 
-One with a posetiv answer eg. Works perfekt
-One with a negative answer eg. It needs improvement
+Instead of asking if a user want to go to the rate page on Google Play, the dialog asks what the user thinks of the app. 
 
-The possetive button takes the user to the Google Play for rating.
-The negative lets the user send a email with feedback.
+The dialog provides two buttons two buttons to answer this. One with a positive answer eg. Works perfekt One with a negative answer eg. It needs improvement
 
-This way much of the negative feedback and ratings are sent to your mail instead of afecting your ratings on Google Play.
+The positive button takes the user to the Google Play for rating. The negative lets the user send an email with feedback.
 
+This way much of the negative feedback and ratings are sent to your mail instead of affecting your ratings on Google Play.
 Sneaky Sneaky
 
 ![screen shot](http://f.st-hatena.com/images/fotolife/h/hotchemi/20140408/20140408114402.png)
