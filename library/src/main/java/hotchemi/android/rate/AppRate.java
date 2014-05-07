@@ -31,8 +31,6 @@ public class AppRate {
 
     private static boolean sIsAgreeShoWDialog = true;
 
-    private static boolean sIsShoWNeutralButton = true;
-
     private AppRate() {
     }
 
@@ -43,11 +41,6 @@ public class AppRate {
 
     public static AppRate setInstallDays(final int installDaysThreshold) {
         sInstallDaysThreshold = installDaysThreshold;
-        return INSTANCE;
-    }
-
-    public static AppRate setShowNeutralButton(final boolean isShowNeutralButton) {
-        sIsShoWNeutralButton = isShowNeutralButton;
         return INSTANCE;
     }
 
@@ -97,7 +90,7 @@ public class AppRate {
      */
     private static void showRateDialog(final FragmentActivity activity) {
         final RateDialogSupportFragment fragment = RateDialogSupportFragment
-                .newInstance(sIsShoWNeutralButton);
+                .newInstance();
         fragment.show(activity.getSupportFragmentManager(), TAG);
     }
 
@@ -108,7 +101,7 @@ public class AppRate {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private static void showRateDialog(final Activity activity) {
-        final RateDialogFragment fragment = RateDialogFragment.newInstance(sIsShoWNeutralButton);
+        final RateDialogFragment fragment = RateDialogFragment.newInstance();
         fragment.show(activity.getFragmentManager(), TAG);
     }
 

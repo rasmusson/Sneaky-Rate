@@ -18,9 +18,8 @@ class DialogManager {
      * Create rate dialog.
      *
      * @param context             context
-     * @param isShowNeutralButton whether neutral button show or not
      */
-    static Dialog create(final Context context, final boolean isShowNeutralButton) {
+    static Dialog create(final Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.rate_dialog_title);
         builder.setMessage(R.string.rate_dialog_message);
@@ -33,18 +32,17 @@ class DialogManager {
                 PreferenceUtils.setAgreeShowDialog(context, false);
             }
         });
-        if (isShowNeutralButton) {
             builder.setNeutralButton(R.string.rate_dialog_cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    PreferenceUtils.clearSharedPreferences(context);
+                    PreferenceUtils.setAgreeShowDialog(context, false);
                 }
             });
-        }
+
         builder.setNegativeButton(R.string.rate_dialog_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                PreferenceUtils.setAgreeShowDialog(context, false);
+
             }
         });
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {

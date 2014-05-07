@@ -85,7 +85,7 @@ android.libraryVariants.all { variant ->
 /*
  * See: http://www.vandalsoftware.com/post/52468430435/publishing-an-android-library-aar-to-a-maven
  */
-uploadArchives {
+/*uploadArchives {
     repositories.mavenDeployer {
         beforeDeployment {
             MavenDeployment deployment -> signing.signPom(deployment)
@@ -128,4 +128,4 @@ uploadArchives {
             }
         }
     }
-}
+}*/
