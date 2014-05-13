@@ -1,7 +1,11 @@
 <resources>
     <string name="rate_dialog_title">Rate this app</string>
-    <string name="rate_dialog_message">If you enjoy playing this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>
-    <string name="rate_dialog_ok">Rate It Now</string>
-    <string name="rate_dialog_cancel">Remind Me Later</string>
-    <string name="rate_dialog_no">No, Thanks</string>
+    <string name="rate_dialog_message">You have enjoyed this app for a while, so tell me what you think of it!</string>
+    <string name="rate_dialog_rate_button">Awesome app</string>
+    <string name="rate_dialog_stop_showing_button">No thanks</string>
+    <string name="rate_dialog_feedback_button">Needs improvement</string>
+    <string name="rate_dialog_feedback_email"></string>
+    <string name="rate_dialog_feedback_subject">App feedback</string>
+    <string name="rate_dialog_feedback_body">List your suggested improvements and I will answer as soon as possible</string>
+    <string name="rate_dialog_feedback_dialog_title">App feedback</string>
 </resources>

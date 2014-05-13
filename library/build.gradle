@@ -42,44 +42,16 @@ def DIR_BUNDLES = 'bundles'
 
 /* See: http://stackoverflow.com/questions/17033878/generate-javadocs-with-android-gradle-plugin */
 android.libraryVariants.all { variant ->
-    if (variant.name == 'release') {
-        def javadocTaskName = "javadoc${variant.name.capitalize()}";
-        task(javadocTaskName, type: Javadoc) {
-            description "Generates Javadoc for $variant.name."
-            source = variant.javaCompile.source
-            destinationDir = reporting.file("${variant.name}-docs")
-            ext.androidJar = "${android.plugin.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
-        }
-        task("javadocsJar${variant.name.capitalize()}", type: Jar) {
-            classifier = "javadoc"
-            from tasks[javadocTaskName].destinationDir
-        }
-        task("sourcesJar${variant.name.capitalize()}", type: Jar) {
-            classifier = "sources"
-            from variant.javaCompile.source
-        }
+  def name = variant.buildType.name
+  if (name.equals(com.android.builder.BuilderConstants.DEBUG)) {
+    return; // Skip debug builds.
+  }
+  def task = project.tasks.create "jar${name.capitalize()}", Jar
+  task.dependsOn variant.javaCompile
+  task.from variant.javaCompile.destinationDir
+  artifacts.add('archives', task);
 
-        task("copyLicenseFile${variant.name.capitalize()}", type: Copy) {
-            from("./LICENSE.txt")
-            into("$project.buildDir/$DIR_BUNDLES/$variant.dirName")
-        }
-        bundleRelease.dependsOn project.tasks["copyLicenseFile${variant.name.capitalize()}"]
-        task("copyNoticeFile${variant.name.capitalize()}", type: Copy) {
-            from("./NOTICE.txt")
-            into("$project.buildDir/$DIR_BUNDLES/$variant.dirName")
-        }
-        bundleRelease.dependsOn project.tasks["copyNoticeFile${variant.name.capitalize()}"]
 
-        /**
-         * artifacts management.
-         * See: http://www.gradle.org/docs/current/userguide/artifact_management.html
-         */
-        artifacts {
-            archives tasks["javadocsJar${variant.name.capitalize()}"]
-            archives tasks["sourcesJar${variant.name.capitalize()}"]
-        }
-    }
 }
 
 /*

@@ -7,7 +7,7 @@ import android.support.v4.app.DialogFragment;
 /**
  * @author Shintaro Katafuchi
  */
-class RateDialogSupportFragment extends DialogFragment {
+public class RateDialogSupportFragment extends DialogFragment {
 
     public RateDialogSupportFragment() {
     }
