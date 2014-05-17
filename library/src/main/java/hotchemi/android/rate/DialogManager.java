@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 
 /**
  * @author Shintaro Katafuchi
@@ -23,13 +24,13 @@ class DialogManager {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.rate_dialog_title);
         builder.setMessage(R.string.rate_dialog_message);
-        builder.setPositiveButton(R.string.rate_dialog_rate_button, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.rate_dialog_rate_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 final String packageName = context.getPackageName();
                 Intent intent = new Intent(Intent.ACTION_VIEW, UriUtils.getGooglePlayUri(packageName));
                 context.startActivity(intent);
-            //    PreferenceUtils.setAgreeShowDialog(context, false);
+                //    PreferenceUtils.setAgreeShowDialog(context, false);
             }
         });
             builder.setNeutralButton(R.string.rate_dialog_feedback_button, new DialogInterface.OnClickListener() {
@@ -45,10 +46,10 @@ class DialogManager {
                 }
             });
 
-        builder.setNegativeButton(R.string.rate_dialog_stop_showing_button, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.rate_dialog_stop_showing_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-              //  PreferenceUtils.setAgreeShowDialog(context, false);
+                //  PreferenceUtils.setAgreeShowDialog(context, false);
             }
         });
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {

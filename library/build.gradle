@@ -9,95 +9,33 @@ android {
     }
 }
 
+version = VERSION_NAME
+group = GROUP
+
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-apply plugin: 'maven'
-apply plugin: 'signing'
-
-version = "0.0.6"
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
-group = 'com.github.hotchemi'
-
-/*
- * See: http://www.gradle.org/docs/current/userguide/signing_plugin.html
- * See: http://www.vandalsoftware.com/post/52468430435/publishing-an-android-library-aar-to-a-maven
- * See: http://gradle.monochromeroad.com/docs/userguide/signing_plugin.html
- */
-signing {
-    required {
-        isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives")
+buildscript {
+    repositories {
+        mavenCentral()
     }
-    sign configurations.archives
-}
 
-/* defined at com/android/build/gradle/BasePlugin.groovy of Android Gradle plugin */
-def DIR_BUNDLES = 'bundles'
-
-/* See: http://stackoverflow.com/questions/17033878/generate-javadocs-with-android-gradle-plugin */
-android.libraryVariants.all { variant ->
-  def name = variant.buildType.name
-  if (name.equals(com.android.builder.BuilderConstants.DEBUG)) {
-    return; // Skip debug builds.
-  }
-  def task = project.tasks.create "jar${name.capitalize()}", Jar
-  task.dependsOn variant.javaCompile
-  task.from variant.javaCompile.destinationDir
-  artifacts.add('archives', task);
-
-
-}
-
-/*
- * See: http://www.vandalsoftware.com/post/52468430435/publishing-an-android-library-aar-to-a-maven
- */
-/*uploadArchives {
-    repositories.mavenDeployer {
-        beforeDeployment {
-            MavenDeployment deployment -> signing.signPom(deployment)
-        }
-
-        def sonatypeRepo = isReleaseVersion ?
-                "https://oss.sonatype.org/service/local/staging/deploy/maven2/" :
-                "https://oss.sonatype.org/content/repositories/snapshots/"
-        repository(url: sonatypeRepo) {
-            authentication(userName: sonatypeUsername, password: sonatypePassword)
-        }
-
-        pom.artifactId = 'android-rate'
-        pom.project {
-            name 'Android-Rate'
-            packaging 'aar'
-            description 'Library for Android applications, which provides rating dialog.'
-            url 'https://github.com/hotchemi/Android-Rate'
-
-            scm {
-                url 'scm:git@github.com:hotchemi/Android-Rate.git'
-                connection 'scm:git@github.com:hotchemi/Android-Rate.git'
-                developerConnection 'scm:git@github.com:hotchemi/Android-Rate.git'
-            }
-
-            licenses {
-                license {
-                    name 'The Apache License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
-                }
-            }
-
-            developers {
-                developer {
-                    id 'hotchemi'
-                    name 'Shintaro Katafuchi'
-                    email 'hot.chemistry21@gmail.com'
-                }
-            }
-        }
+    dependencies {
+        classpath 'com.github.dcendents:android-maven-plugin:1.0'
     }
-}*/
+}
+
+apply plugin: 'android-maven'
+
+install {
+    repositories.mavenInstaller {
+        pom.version = VERSION_NAME
+        pom.artifactId = POM_ARTIFACT_ID
+    }
+}
+
+apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+
+
