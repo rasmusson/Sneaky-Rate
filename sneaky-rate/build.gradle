@@ -58,7 +58,7 @@ signing {
 uploadArchives {
     configuration = configurations.archives
     repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+/*        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
         repository(url: DEP_MGT_URL) {
             authentication(userName: DEP_MGT_USER_NAME,
@@ -68,7 +68,7 @@ uploadArchives {
             authentication(userName: DEP_MGT_USER_NAME,
                     password: DEP_MGT_PASSWORD)
         }
-
+*/
         pom.project {
             name 'Sneaky Rate'
             packaging 'aar'
