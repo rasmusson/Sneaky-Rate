@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 
+import java.net.URLEncoder;
+
 /**
  * @author Shintaro Katafuchi
  */
@@ -18,7 +20,7 @@ class DialogManager {
     /**
      * Create rate dialog.
      *
-     * @param context             context
+     * @param context context
      */
     static Dialog create(final Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -30,26 +32,30 @@ class DialogManager {
                 final String packageName = context.getPackageName();
                 Intent intent = new Intent(Intent.ACTION_VIEW, UriUtils.getGooglePlayUri(packageName));
                 context.startActivity(intent);
-                //    PreferenceUtils.setAgreeShowDialog(context, false);
+                PreferenceUtils.setAgreeShowDialog(context, false);
             }
         });
-            builder.setNeutralButton(R.string.rate_dialog_feedback_button, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent email = new Intent(Intent.ACTION_SEND);
-                    email.setType("text/email");
-                    email.putExtra(Intent.EXTRA_EMAIL, new String[]{context.getString(R.string.rate_dialog_feedback_email)});
-                    email.putExtra(Intent.EXTRA_SUBJECT, R.string.rate_dialog_feedback_subject);
-                    email.putExtra(Intent.EXTRA_TEXT, R.string.rate_dialog_feedback_body);
-                    context.startActivity(Intent.createChooser(email, context.getString(R.string.rate_dialog_feedback_dialog_title)));
-             //       PreferenceUtils.setAgreeShowDialog(context, false);
-                }
-            });
+        builder.setNeutralButton(R.string.rate_dialog_feedback_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.setType("text/plain");
+                email.putExtra(Intent.EXTRA_EMAIL, new String[] {context.getString(R.string.rate_dialog_feedback_email)});
+                email.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.rate_dialog_feedback_subject));
+                email.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.rate_dialog_feedback_body));
+                context.startActivity(Intent.createChooser(email, context.getString(R.string.rate_dialog_feedback_dialog_title)));
+
+                PreferenceUtils.setAgreeShowDialog(context, false);
+
+            }
+        });
 
         builder.setPositiveButton(R.string.rate_dialog_stop_showing_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //  PreferenceUtils.setAgreeShowDialog(context, false);
+                PreferenceUtils.setAgreeShowDialog(context, false);
             }
         });
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {

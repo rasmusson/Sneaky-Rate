@@ -1,0 +1,126 @@
+apply plugin: 'android-library'
+apply plugin: 'maven-publish'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.1"
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 19
+    }
+}
+
+def VERSION_NAME = '0.0.1-SNAPSHOT'
+def ARTIFACT_ID = 'sneaky-rate'
+
+version = VERSION_NAME
+/*group = GROUP
+artifactId = POM_ARTIFACT_ID
+*/
+dependencies {
+    compile 'com.android.support:appcompat-v7:+'
+    compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+}
+
+android.libraryVariants
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+	   artifacts
+	   artifactId ARTIFACT_ID
+        }
+/*	mavenJava(MavenPublication) {
+            artifact androidJavadocJar
+        }
+	mavenJava(MavenPublication) {
+            artifact "build/libs/" + ARTIFACT_ID + "-" + VERSION_NAME + ".aar"
+        }
+*/    }
+}
+
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+signing {
+    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        repository(url: DEP_MGT_URL) {
+            authentication(userName: DEP_MGT_USER_NAME,
+                    password: DEP_MGT_PASSWORD)
+        }
+        snapshotRepository(url: DEP_MGT_SNAP_URL) {
+            authentication(userName: DEP_MGT_USER_NAME,
+                    password: DEP_MGT_PASSWORD)
+        }
+
+        pom.project {
+            name 'Sneaky Rate'
+            packaging 'aar'
+            description 'A sneakier rating dialog for Android'
+            url 'https://github.com/rasmusson/Sneaky-Rate'
+            artifactId ARTIFACT_ID
+	    groupId 'no.steras.sneaky-rate'
+	    version VERSION_NAME	
+
+            scm {
+                url 'scm:git@github.com:rasmusson/Sneaky-Rate.git'
+                connection 'scm:git@github.com:rasmusson/Sneaky-Rate.git'
+                developerConnection 'scm:git@github.com:rasmusson/Sneaky-Rate.git'
+            }
+
+            licenses {
+                license {
+                    name 'The MIT License'
+                    url 'http://opensource.org/licenses/mit-license.php'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'rasmusson'
+                    name 'Stefan Rasmusson'
+                    email 'rasmusson.stefan@gmail.com'
+                }
+            }
+        }
+    }
+
+    task androidJavadocs(type: Javadoc) {
+        source = android.sourceSets.main.allJava
+    }
+
+    task androidJavadocsJar(type: Jar) {
+        classifier = 'javadoc'
+        //basename = artifact_id
+        from androidJavadocs.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        //basename = artifact_id
+        from android.sourceSets.main.allSource
+    }
+
+    artifacts {
+        //archives packageReleaseJar
+        archives androidSourcesJar
+        archives androidJavadocsJar
+    }
+}
