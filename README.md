@@ -16,22 +16,6 @@ The positive button takes the user to the Google Play for rating. The negative l
 This way much of the negative feedback and ratings are sent to your mail instead of affecting your ratings on Google Play.
 Sneaky Sneaky
 
-![screen shot](http://f.st-hatena.com/images/fotolife/h/hotchemi/20140408/20140408114402.png)
-
-## Download
-
-Download from [maven central](http://search.maven.org/#browse%7C-2029320689).
-
-```groovy
-  dependencies {
-    compile 'com.github.hotchemi:android-rate:{latest.version}'
-  }
-```
-
-## ChangeLog
-
-- 2014/02/12 0.0.2 release.
-
 ## How to use
 
 ### Implementation
